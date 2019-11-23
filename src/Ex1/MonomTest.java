@@ -1,4 +1,4 @@
-package myMath;
+package Ex1;
 import java.util.ArrayList;
 /**
  * This class represents a simple (naive) tester for the Monom class,
@@ -66,7 +66,6 @@ public class MonomTest {
 		testAdd();
 		testMul();
 		testBadExamples();
-		testDerivative();
 	}
 	private static void testBuilder1()
 	{
@@ -153,15 +152,7 @@ public class MonomTest {
 			}
 		}
 	}
-	private static void testDerivative()
-	{
-		System.out.println("*****  testDerivative:  *****");
-		String[] monoms = {"3x","-x","-3.2x^2","5x^3","2","0"};
-		for (int i = 0; i < monoms.length; i++) {
-			Monom m1 = new Monom(monoms[i]);
-			System.out.println(i+") Original :"+m1.toString() + " after derivative "+m1.derivative().toString());
-		}
-	}
+
 
 
 

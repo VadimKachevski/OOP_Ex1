@@ -1,4 +1,4 @@
-package myMath;
+package Ex1;
 
 import java.util.Iterator;
 
@@ -25,7 +25,7 @@ import java.util.Iterator;
  * 3.3 double f(x) // return this Polygon value at p(x) 
  * 3.4 boolean equals(Polygon p) // returns true iff for any x: this.f(x) == p.f(x)
  * 3.5 double root(double x0, double x1, double eps) // assuming (f(x0)*f(x1)<=0, returns f(x2) such that:
- *													//	(i) x0<=x2<=x1 & (ii) {f(x2)<eps
+ *													//	(i) x0<=x2<=x2 & (ii) {f(x2)<eps
  * 3.6 String toString() // returns a String such that it can be used for init an equal(s) Polygon
  *													
  * 
@@ -64,7 +64,7 @@ public interface Polynom_able extends cont_function{
 	 * @param p1
 	 * @return true iff this polynom represents the same function as p1
 	 */
-	public boolean equals (Polynom_able p1);
+	public boolean equals (Object p1);
 	/**
 	 * Test if this is the Zero Polynom
 	 * @return
