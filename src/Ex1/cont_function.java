@@ -26,6 +26,5 @@ public interface cont_function extends function{
 	 * @param eps>0 (positive) representing the epsilon range the solution should be within.
 	 * @return an approximated value (root) for this (cont.) function 
 	 */
-	public double root(double x0, double x1, double eps);	
-	
+	public double root(double x0, double x1, double eps);
 }

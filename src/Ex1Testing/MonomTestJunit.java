@@ -1,4 +1,5 @@
-package Ex1;
+package Ex1Testing;
+import Ex1.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -123,9 +124,19 @@ class MonomTestJunit {
 		}
 	}
 
-//	@Test
-//	void testCopy() {
-//		fail("Not yet implemented");
-//	}
+	@Test
+	void testCopy() {
+		Monom m = new Monom("2x^2");
+		function m_copied = m.copy();
+		assertEquals(true, m_copied.equals(m));
+		
+		Monom temp = new Monom("x^2");
+		m.add(temp);
+		assertEquals(false, m_copied.equals(m));//false
+		
+		temp = new Monom("-x^2");
+		m.add(temp);
+		assertEquals(true, m_copied.equals(m));//true
+	}
 
 }

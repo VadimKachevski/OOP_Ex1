@@ -166,6 +166,7 @@ public class Monom implements function{
 		//			throw new RuntimeException("The Monom: "+ s +" is not valid has to be in the format of aX^b");	
 		//		}
 		String orgString = s;
+		s = s.strip();
 		int sign = 1;
 		if(s==null || s.length() == 0)
 		{
@@ -300,6 +301,11 @@ public class Monom implements function{
 		}
 		else
 		{
+			if(other instanceof Polynom)
+			{
+				Polynom p = new Polynom(this.toString());
+				return p.equals(other);
+			}
 			return false;
 		}
 	}

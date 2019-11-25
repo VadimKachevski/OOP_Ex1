@@ -247,6 +247,11 @@ public class Polynom implements Polynom_able{
 		}
 		else
 		{
+			if(p1 instanceof Monom)
+			{
+				Polynom m = new Polynom(p1.toString());
+				return this.equals(m);
+			}
 			return false;
 		}
 	}
@@ -347,8 +352,9 @@ public class Polynom implements Polynom_able{
 	@Override
 	public void multiply(Monom m1) {
 		// TODO Auto-generated method stub
+		Monom m2 = new Monom(m1);
 		for (Monom monom : Monoms) {
-			monom.multipy(m1);
+			monom.multipy(m2);
 		}
 
 	}
@@ -383,8 +389,8 @@ public class Polynom implements Polynom_able{
 	/* new functions */
 	@Override
 	public function initFromString(String s) {
-		// TODO Auto-generated method stub
-		return null;
+		function ans = new Polynom(s);
+		return ans;
 	}
 
 }

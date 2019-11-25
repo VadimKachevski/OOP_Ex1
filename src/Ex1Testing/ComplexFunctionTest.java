@@ -1,10 +1,15 @@
-package Ex1;
+package Ex1Testing;
+import Ex1.*;
 /**
  * 
 
  */
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+
+import Ex1.ComplexFunction;
+import Ex1.Monom;
+import Ex1.Polynom;
 
 class ComplexFunctionTest {
 	public static final double EPS = 0.00001;
@@ -13,7 +18,7 @@ class ComplexFunctionTest {
 		Monom m1 = new Monom(2,2);
 		Monom m2 = new Monom(3,3);
 		ComplexFunction cf = new ComplexFunction("plus", m1,m2);
-	//	System.out.println(cf);
+		//	System.out.println(cf);
 		cf.mul(m2);
 		System.out.println(cf);
 		Polynom p = new Polynom();
@@ -27,44 +32,45 @@ class ComplexFunctionTest {
 		if(dd>EPS) {
 			System.out.println(p+" at "+v+" = "+dp);
 			System.out.println(cf+" at "+v+" = "+dcf);
-			fail("ERR: should got the same value from: "+p+"  and "+cf);
-		
+			fail("ERR: should got the same value from: "+p+"should be: "+dp+"  and "+cf+"should be "+dcf);
+
 		}
 	}
 
-		@Test
-		void testOfString() {
-			Polynom p1 = new Polynom();
-			p1.add( new Monom(2,2));
-			Polynom p2 = new Polynom();
-			p2.add(new Monom(3,3));
-			Monom m1 = new Monom(2,2);
-			Monom m2 = new Monom(3,3);
-			ComplexFunction cf = new ComplexFunction("plus", m1,m2);
-			ComplexFunction cf3 = new ComplexFunction("plus", p1,p2);
-			//System.out.println(cf);
-			cf.mul(m2);
-			cf3.mul(m2);
-			String s = cf.toString();
-			function cf2 = cf.initFromString(s);
-			if(!cf.equals(cf2)) {
-				fail("ERR: "+cf+" should be equals to "+cf2);
-			}
-			if(!cf.equals(cf3)) {
-				fail("ERR: "+cf+" should be equals to "+cf3);
-			}
+	@Test
+	void testOfString() {
+		Polynom p1 = new Polynom();
+		p1.add( new Monom(2,2));
+		Polynom p2 = new Polynom();
+		p2.add(new Monom(3,3));
+		Monom m1 = new Monom(2,2);
+		Monom m2 = new Monom(3,3);
+		ComplexFunction cf = new ComplexFunction("plus", m1,m2);
+		ComplexFunction cf3 = new ComplexFunction("plus", p1,p2);
+		//System.out.println(cf);
+		cf.mul(m2);
+		cf3.mul(m2);
+		String s = cf.toString();
+		function cf2 = cf.initFromString(s);
+		if(!cf.equals(cf2)) {
+			fail("ERR: "+cf+" should be equals to "+cf2);
+		}
+		if(!cf.equals(cf3)) {
+			fail("ERR: "+cf+" should be equals to "+cf3);
+		}
 	}
 	@Test
 	void testComplexFunction() {
-		String s1 = "3.1 +2.4x^2 -x^4";
-		String s2 = "5 +2x -3.3x +0.1x^5";
-		String[] s3 = {"x -1","x -2", "x -3", "x -4"};
+		String s1 = "3.1+2.4x^2-x^4";
+		String s2 = "5+2x-3.3x+0.1x^5";
+		String[] s3 = {"x-1","x-2", "x-3", "x-4"};
 		Polynom p1 = new Polynom(s1);
 		Polynom p2 = new Polynom(s2);
 		Polynom p3 = new Polynom(s3[0]);
 		for(int i=1;i<s3.length;i++) {
 			p3.multiply(new Polynom(s3[i]));
 		}
+
 		ComplexFunction cf = new ComplexFunction("plus", p1,p2);
 		ComplexFunction cf4 = new ComplexFunction("div", new Monom("x"),p3);
 		cf.div(p1);
@@ -83,4 +89,6 @@ class ComplexFunctionTest {
 		System.out.println(cf4);
 		System.out.println(cf5);
 	}
+	
+	
 }
