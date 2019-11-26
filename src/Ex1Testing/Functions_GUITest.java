@@ -12,7 +12,7 @@ import Ex1.Range;
 import Ex1.function;
 /**
  * Partial JUnit + main test for the GUI_Functions class, expected output from the main:
- * 0) java.awt.Color[r=0,g=0,b=255]  f(x)= plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0)
+0) java.awt.Color[r=0,g=0,b=255]  f(x)= plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0)
 1) java.awt.Color[r=0,g=255,b=255]  f(x)= plus(div(+1.0x +1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x -4.0)),2.0)
 2) java.awt.Color[r=255,g=0,b=255]  f(x)= div(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),-1.0x^4 +2.4x^2 +3.1)
 3) java.awt.Color[r=255,g=200,b=0]  f(x)= -1.0x^4 +2.4x^2 +3.1
@@ -46,27 +46,44 @@ class Functions_GUITest {
 	//	fail("Not yet implemented");
 	}
 
-	//@Test
+	@Test
 	void testInitFromFile() {
-	//	fail("Not yet implemented");
-	}
-
-	//@Test
-	void testSaveToFile() {
-	//	fail("Not yet implemented");
-	}
-
-	//@Test
-	void testDrawFunctions() {
-		//_data.drawFunctions();
-	//	fail("Not yet implemented");
+		try {
+			Functions_GUI a = new Functions_GUI();
+			a.initFromFile("f.txt");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@Test
-	void testDrawFunctionsIntIntRangeRangeInt() {
-		_data.drawFunctions();
-		//fail("Not yet implemented");
+	void testSaveToFile() {
+		try
+		{
+		_data.saveToFile("s.txt");
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 	}
+
+	@Test
+	void testDrawFunctions() {
+		int w=1000, h=600, res=200;
+		Range rx = new Range(-10,10);
+		Range ry = new Range(-5,15);
+		_data.drawFunctions(w,h,rx,ry,res);
+	//	fail("Not yet implemented");
+	}
+
+//	@Test
+//	void testDrawFunctionsIntIntRangeRangeInt() {
+//		_data.drawFunctions();
+//		//fail("Not yet implemented");
+//	}
 	public static Functions_GUI FunctionsFactory() {
 		Functions_GUI ans = new Functions_GUI();
 		String s1 = "3.1 +2.4x^2 -x^4";

@@ -211,7 +211,6 @@ public class Polynom implements Polynom_able{
 		}
 		this.Monoms = pol.Monoms;
 	}
-
 	@Override
 	public boolean equals(Object p1) {
 		// TODO Auto-generated method stub

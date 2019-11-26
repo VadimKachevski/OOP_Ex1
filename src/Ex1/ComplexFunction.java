@@ -9,6 +9,13 @@ public class ComplexFunction implements complex_function {
 	function right;
 	Operation OP;
 
+	public ComplexFunction()
+	{
+		this.left= null;
+		this.right = null;
+		this.OP = Operation.Error;
+	}
+	
 	public ComplexFunction(String op,function left,function right) 
 	{
 		//Divid, Max, Min, Comp , None, Error
@@ -80,17 +87,35 @@ public class ComplexFunction implements complex_function {
 			return m.initFromString(s);
 		}
 		int IndexFirstBracket = s.indexOf("(");
-		int IndexComma = s.lastIndexOf(",");
+		int IndexComma = findComma(s,IndexFirstBracket);
 		String op = s.substring(0, IndexFirstBracket);
 		function left = initFromString(s.substring(IndexFirstBracket+1,IndexComma));
 		function right = initFromString(s.substring(IndexComma+1,s.length()-1));
 		function ans = new ComplexFunction(op, left, right);
 		return ans;
 	}
-
+	private int findComma(String s,int indexFirstBracket)
+	{
+		int counterComma=0;
+		int counterOpenBracket=1;
+		int index=indexFirstBracket+1;
+		while(counterOpenBracket != counterComma && index<s.length())
+		{
+			if(s.charAt(index) == '(')
+			{
+				counterOpenBracket++;
+			}
+			if(s.charAt(index) == ',')
+			{
+				counterComma++;
+			}
+			index++;
+		}
+		return index-1;
+	}
 	@Override
 	public function copy() {
-		function ans = new ComplexFunction(this.OP.toString(),left.copy(),right.copy());
+		function ans = new ComplexFunction(getStringOP(),left.copy(),right.copy());
 		return ans;
 	}
 
@@ -98,7 +123,7 @@ public class ComplexFunction implements complex_function {
 	public void plus(function f1) {
 		if(this.right != null)
 		{
-			function f = new ComplexFunction(this.OP.toString(),this.left.copy(),this.right.copy());
+			function f = new ComplexFunction(getStringOP(),this.left.copy(),this.right.copy());
 			this.left = f;
 		}
 
@@ -110,7 +135,7 @@ public class ComplexFunction implements complex_function {
 	public void mul(function f1) {
 		if(this.right != null)
 		{
-			function f = new ComplexFunction(this.OP.toString(),this.left,this.right);
+			function f = new ComplexFunction(getStringOP(),this.left,this.right);
 			this.left = f.copy();
 		}
 		this.right = f1.copy();
@@ -122,7 +147,7 @@ public class ComplexFunction implements complex_function {
 	public void div(function f1) {
 		if(this.right != null)
 		{
-			function f = new ComplexFunction(this.OP.toString(),this.left,this.right);
+			function f = new ComplexFunction(getStringOP(),this.left,this.right);
 			this.left = f.copy();
 		}
 		this.right = f1.copy();
@@ -135,7 +160,7 @@ public class ComplexFunction implements complex_function {
 		// TODO Auto-generated method stub
 		if(this.right != null)
 		{
-			function f = new ComplexFunction(this.OP.toString(),this.left,this.right);
+			function f = new ComplexFunction(getStringOP(),this.left,this.right);
 			this.left = f.copy();
 		}
 		this.right = f1.copy();
@@ -147,7 +172,7 @@ public class ComplexFunction implements complex_function {
 		// TODO Auto-generated method stub
 		if(this.right != null)
 		{
-			function f = new ComplexFunction(this.OP.toString(),this.left,this.right);
+			function f = new ComplexFunction(getStringOP(),this.left,this.right);
 			this.left = f.copy();
 		}
 		this.right = f1.copy();
@@ -159,7 +184,7 @@ public class ComplexFunction implements complex_function {
 		// TODO Auto-generated method stub
 		if(this.right != null)
 		{
-			function f = new ComplexFunction(this.OP.toString(),this.left,this.right);
+			function f = new ComplexFunction(getStringOP(),this.left,this.right);
 			this.left = f.copy();
 		}
 		this.right = f1.copy();
