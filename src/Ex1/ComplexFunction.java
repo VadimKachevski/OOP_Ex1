@@ -1,6 +1,5 @@
 package Ex1;
 
-import org.hamcrest.core.Is;
 
 public class ComplexFunction implements complex_function {
 

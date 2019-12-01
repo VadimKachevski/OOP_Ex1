@@ -185,11 +185,18 @@ public class Functions_GUI implements functions {
 		StdDraw.setYscale(ry.get_min(), ry.get_max());
 
 		StdDraw.setPenColor(Color.LIGHT_GRAY);
-		for (int i = 0; i <= resolution; i=i+10) {
-			StdDraw.line(rx.get_min()+i/10, ry.get_min(), rx.get_min()+i/10, ry.get_max());
+//		for (int i = 0; i <= resolution; i=i+10) {
+//			StdDraw.line(rx.get_min()+i/10, ry.get_min(), rx.get_min()+i/10, ry.get_max());
+//		}
+		
+		for (double i = rx.get_min(); i <= rx.get_max(); i++) {
+			StdDraw.line(i, ry.get_min(), i, ry.get_max());
 		}
-		for (int i = 0; i <= resolution; i=i+10) {
-			StdDraw.line(rx.get_min(), ry.get_min()+i/10, rx.get_max(), ry.get_min()+i/10);
+//		for (int i = 0; i <= resolution; i=i+10) {
+//			StdDraw.line(rx.get_min(), ry.get_min()+i/10, rx.get_max(), ry.get_min()+i/10);
+//		}
+		for (double i = ry.get_min(); i <= ry.get_max(); i++) {
+			StdDraw.line(rx.get_min(), i, rx.get_max(), i);
 		}
 
 		StdDraw.setPenColor(Color.BLACK);
@@ -197,36 +204,39 @@ public class Functions_GUI implements functions {
 		//StdDraw.line(rx.get_min(), (ry.get_max()+ry.get_min())/2, rx.get_max(), (ry.get_max()+ry.get_min())/2);
 		StdDraw.setFont(new Font("TimesRoman", Font.BOLD, 15));
 		StdDraw.line(rx.get_min(), 0, rx.get_max(), 0);
-		for (int i = 0; i <= Math.abs(rx.get_min())+Math.abs(rx.get_max()); i++) {
-			StdDraw.text(rx.get_min()+i, -0.30, Double.toString((rx.get_min()+i)));
+//		for (int i = 0; i <= Math.abs(rx.get_min())+Math.abs(rx.get_max()); i++) {
+//			StdDraw.text(rx.get_min()+i, -0.30, Double.toString((rx.get_min()+i)));
+//		}
+		for (double i = rx.get_min(); i <= rx.get_max(); i++) {
+			StdDraw.text(i, -0.30, Integer.toString(Math.toIntExact((long) i)));
 		}
 		StdDraw.line(0, ry.get_min(), 0, ry.get_max());
-		for (int i = 0; i <= Math.abs(ry.get_min())+Math.abs(ry.get_max()); i++) {
-			StdDraw.text(-0.30,ry.get_min()+i, (Double.toString((int)(ry.get_min()+i))));
+//		for (int i = 0; i <= Math.abs(ry.get_min())+Math.abs(ry.get_max()); i++) {
+//			StdDraw.text(-0.30,ry.get_min()+i, (Double.toString((int)(ry.get_min()+i))));
+//		}
+		for (double i = ry.get_min(); i <= ry.get_max(); i++) {
+			StdDraw.text(-0.20,i, Integer.toString(Math.toIntExact((long) i)));
 		}
 
 		for (function function : ColFunctions) {
-			double[] xMAX = new double[resolution+1];
-			double[] yMAX = new double[resolution+1];
-			double[] xMIN = new double[resolution+1];
-			double[] yMIN = new double[resolution+1];
-			for (int i = 0; i <= resolution; i++) {
-				xMAX[i] = rx.get_max() * i / resolution;
-				yMAX[i] = function.f(xMAX[i]);
-
-				xMIN[i] = rx.get_min() * i / resolution;
-				yMIN[i] = function.f(xMIN[i]);
+			ArrayList<Double> xTag = new ArrayList<Double>();
+			ArrayList<Double> yTag = new ArrayList<Double>();
+			
+		//	for (double i = rx.get_min(); i < rx.get_max(); i+=(0.1))
+			double rx_step = (Math.abs(rx.get_min())+Math.abs(rx.get_max()))/resolution;
+			for (double i = rx.get_min(); i < rx.get_max(); i+=rx_step)
+			{
+				xTag.add(i);
+				yTag.add(function.f(i));
 			}
 			int R = (int)(Math.random()*256);
 			int G = (int)(Math.random()*256);
 			int B= (int)(Math.random()*256);
 			Color color = new Color(R, G, B);
 			StdDraw.setPenColor(color);
-			for (int i = 0; i < resolution; i++) {
-				StdDraw.line(xMAX[i], yMAX[i], xMAX[i+1], yMAX[i+1]);
-				StdDraw.line(xMIN[i], yMIN[i], xMIN[i+1], yMIN[i+1]);
+			for (int i = 0; i < xTag.size()-1; i++) {
+				StdDraw.line(xTag.get(i), yTag.get(i), xTag.get(i+1), yTag.get(i+1));
 			}
-
 		}
 		StdDraw.setPenColor(Color.BLACK);
 
@@ -238,7 +248,7 @@ public class Functions_GUI implements functions {
 		//		InputStream fis = new FileInputStream(JSON_FILE);
 		//
 		//		//create JsonReader object
-		//		JsonReader jsonReader = Json.createReader(fis);
+			//	JsonReader jsonReader = Json.createReader(fis);
 		//
 		//		/**
 		//		 * We can create JsonReader from Factory also
@@ -306,20 +316,4 @@ public class Functions_GUI implements functions {
 
 	}
 
-}
-class GUI_PARAMS
-{
-	public int Width=1000;
-	public	int Height=600;
-	public int Resolution=200;
-	public	int[] Range_X = {-10,10};
-	public int[] Range_Y = {-5,15};
-	public GUI_PARAMS(int Width,int Height,int Resolution,int[] Range_X,int[] Range_Y)
-	{
-		this.Width = Width;
-		this.Height = Height;
-		this.Resolution = Resolution;
-		this.Range_X = Range_X;
-		this.Range_Y = Range_Y;
-	}
 }
