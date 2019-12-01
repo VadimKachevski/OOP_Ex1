@@ -131,7 +131,7 @@ class PolynomTestJunit {
 	@Test
 	void testCopy() {
 		Polynom m = new Polynom("2x^2");
-		Polynom_able m_copied = m.copy();
+		function m_copied = m.copy();
 		assertEquals(true, m_copied.equals(m));
 		
 		Polynom temp = new Polynom("1");
@@ -185,7 +185,7 @@ class PolynomTestJunit {
 		x1 = -1;
 		x2 = 0;
 		area = p3.area(x1, x2, eps);
-		ans = 1;
+		ans = 1.08866210;
 		if(Math.abs(ans-area)>eps)
 		{
 			fail("Should be: "+ans +" but was" + area);

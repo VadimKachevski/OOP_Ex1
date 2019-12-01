@@ -4,6 +4,7 @@ import Ex1.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 import Ex1.ComplexFunction;
 import Ex1.Functions_GUI;
 import Ex1.Monom;
@@ -46,6 +47,27 @@ class Functions_GUITest {
 	//	fail("Not yet implemented");
 	}
 
+	
+	@Test
+	void testDrawFun()
+	{
+		//f.initFromString("plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0)")
+		Functions_GUI d = new Functions_GUI();
+	//	function f1 = new Polynom("-1.0x^4 +2.4x^2 +3.1");
+//		function f2 = new Polynom("+0.1x^5 -1.2999999999999998x +5.0");
+		//ComplexFunction s = new ComplexFunction("plus",f1,f2);
+		//d.add(s);
+		try {
+		d.initFromFile("test.txt");
+		d.drawFunctions("GUI_params.txt");
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	
+	
 	@Test
 	void testInitFromFile() {
 		try {

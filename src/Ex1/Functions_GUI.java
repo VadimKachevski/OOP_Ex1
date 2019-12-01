@@ -13,7 +13,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import com.google.gson.Gson;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 
 
 
@@ -249,20 +252,68 @@ public class Functions_GUI implements functions {
 		//		//we can close IO resource and JsonReader now
 		//		jsonReader.close();
 		//		fis.close();
-		Gson gs = new Gson();
-		GUI_PARAMS gp = gs.fromJson(json_file, GUI_PARAMS.class);
-		drawFunctions(gp.Width, gp.Height, new Range(gp.Range_X[0], gp.Range_X[1]), new Range(gp.Range_Y[0], gp.Range_Y[1]), gp.Resolution);
+		try {
+			JSONObject  obj = (JSONObject) new JSONParser().parse(new FileReader(json_file));
+			int Width=1000;
+			int Height=600;
+			int Resolution=200;
+			double[] Range_X = {-10,10};
+			double[] Range_Y = {-5,15};
+			JSONArray JAx;
+			JSONArray JAy;
+			if(obj.get("Width") != null)
+			{
+				Width = Math.toIntExact((long) obj.get("Width"));
+			}
+			if(obj.get("Height") != null)
+			{
+				Height = Math.toIntExact((long) obj.get("Height"));
+			}
+			if(obj.get("Resolution") != null)
+			{
+				Resolution = Math.toIntExact((long) obj.get("Resolution"));
+			}
+			if(obj.get("Range_X") != null)
+			{
+				JAx = (JSONArray) obj.get("Range_X");
+				Iterator<Long> itr = JAx.iterator();
+				int i=0;
+				while(itr.hasNext() && i<2)
+				{
+					
+					Range_X[i++] = (double)itr.next().doubleValue();
+				}
+			}
+			if(obj.get("Range_Y") != null)
+			{
+				JAy = (JSONArray) obj.get("Range_Y");
+				Iterator<Long> itr = JAy.iterator();
+				int i=0;
+				while(itr.hasNext() && i<2)
+				{
+					Range_Y[i++] = (double)itr.next().doubleValue();
+				}
+			}
+			Range rx = new Range(Range_X[0], Range_X[1]);
+			Range ry = new Range(Range_Y[0], Range_Y[1]);
+			drawFunctions(Width,Height,rx,ry,Resolution);
+			//obj.get
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+
 
 	}
 
 }
 class GUI_PARAMS
 {
-	int Width;
-	int Height;
-	int Resolution;
-	int[] Range_X;
-	int[] Range_Y;
+	public int Width=1000;
+	public	int Height=600;
+	public int Resolution=200;
+	public	int[] Range_X = {-10,10};
+	public int[] Range_Y = {-5,15};
 	public GUI_PARAMS(int Width,int Height,int Resolution,int[] Range_X,int[] Range_Y)
 	{
 		this.Width = Width;

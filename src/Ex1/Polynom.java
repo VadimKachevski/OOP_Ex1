@@ -156,7 +156,7 @@ public class Polynom implements Polynom_able{
 	@Override
 	public void substract(Polynom_able p1) {
 		// TODO Auto-generated method stub
-		Polynom_able Pol = p1.copy();
+		Polynom_able Pol = (Polynom_able) p1.copy();
 		Iterator<Monom> itr = Pol.iteretor();
 		boolean added = true;
 		while(itr.hasNext())
@@ -194,7 +194,7 @@ public class Polynom implements Polynom_able{
 			Monoms.add(new Monom(Monom.ZERO));
 		}
 		ArrayList<Monom> newMonoms = new ArrayList<Monom>();
-		Polynom_able newp1 = p1.copy();
+		Polynom_able newp1 = (Polynom_able) p1.copy();
 
 		for (Monom monom : Monoms) {
 			Iterator<Monom> itr = newp1.iteretor();
@@ -300,7 +300,7 @@ public class Polynom implements Polynom_able{
 	}
 
 	@Override
-	public Polynom_able copy() {
+	public function copy() {
 		Polynom_able ans = new Polynom();
 		for(int i=0;i<Monoms.size();i++) {
 			ans.add(new Monom(Monoms.get(i)));
@@ -391,5 +391,6 @@ public class Polynom implements Polynom_able{
 		function ans = new Polynom(s);
 		return ans;
 	}
+	
 
 }
