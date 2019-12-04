@@ -3,12 +3,9 @@ package Ex1;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -22,16 +19,18 @@ import org.json.simple.parser.JSONParser;
 
 
 
+
 public class Functions_GUI implements functions {
 
 
 	ArrayList<function> ColFunctions;
-	ArrayList<Color> Colors;
+	//ArrayList<Color> Colors;
+	
 
 	public Functions_GUI() {
 		// TODO Auto-generated constructor stub
 		ColFunctions = new ArrayList<function>();
-		Colors = new ArrayList<Color>();
+	//	Colors = new ArrayList<Color>();
 	}
 
 	@Override
@@ -219,49 +218,24 @@ public class Functions_GUI implements functions {
 		}
 
 		for (function function : ColFunctions) {
-			ArrayList<Double> xTag = new ArrayList<Double>();
-			ArrayList<Double> yTag = new ArrayList<Double>();
-			
-		//	for (double i = rx.get_min(); i < rx.get_max(); i+=(0.1))
 			double rx_step = (Math.abs(rx.get_min())+Math.abs(rx.get_max()))/resolution;
-			for (double i = rx.get_min(); i < rx.get_max(); i+=rx_step)
-			{
-				xTag.add(i);
-				yTag.add(function.f(i));
-			}
 			int R = (int)(Math.random()*256);
 			int G = (int)(Math.random()*256);
 			int B= (int)(Math.random()*256);
 			Color color = new Color(R, G, B);
+		//	color=color.brighter();
 			StdDraw.setPenColor(color);
-			for (int i = 0; i < xTag.size()-1; i++) {
-				StdDraw.line(xTag.get(i), yTag.get(i), xTag.get(i+1), yTag.get(i+1));
+			for (double i = rx.get_min(); i < rx.get_max(); i+=rx_step)
+			{
+				StdDraw.line(i, function.f(i), i+rx_step, function.f(i+rx_step));
 			}
 		}
-		StdDraw.setPenColor(Color.BLACK);
+		StdDraw.setPenColor(Color.BLACK);//Remove later
 
 	}
 
 	@Override
 	public void drawFunctions(String json_file) {
-		//		// TODO Auto-generated method stub
-		//		InputStream fis = new FileInputStream(JSON_FILE);
-		//
-		//		//create JsonReader object
-			//	JsonReader jsonReader = Json.createReader(fis);
-		//
-		//		/**
-		//		 * We can create JsonReader from Factory also
-		//		JsonReaderFactory factory = Json.createReaderFactory(null);
-		//		jsonReader = factory.createReader(fis);
-		//		 */
-		//
-		//		//get JsonObject from JsonReader
-		//		JsonObject jsonObject = jsonReader.readObject();
-		//
-		//		//we can close IO resource and JsonReader now
-		//		jsonReader.close();
-		//		fis.close();
 		try {
 			JSONObject  obj = (JSONObject) new JSONParser().parse(new FileReader(json_file));
 			int Width=1000;

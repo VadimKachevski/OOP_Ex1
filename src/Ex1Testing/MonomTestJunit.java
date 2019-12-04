@@ -24,14 +24,13 @@ class MonomTestJunit {
 			}
 		}	
 	}
-
 	@Test
 	void testF() {
 		double[] ans = {2.0,-1,-12.8,0,-32.0,-16.0};
 		String[] monoms = {"2", "-x","-3.2x^2","0","-2x^2","-3.2x^1"};
 		for (int i = 0; i < monoms.length; i++) {
 			Monom m1 = new Monom(monoms[i]);
-			assertEquals(ans[i], m1.f(i));
+			assertEquals(ans[i], m1.f(i),Monom.EPSILON);
 		}
 	}
 

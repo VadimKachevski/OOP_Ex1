@@ -89,6 +89,16 @@ class ComplexFunctionTest {
 		System.out.println(cf4);
 		System.out.println(cf5);
 	}
-	
+	@Test
+	void equalsTest()
+	{
+		ComplexFunction a = new ComplexFunction();
+		function f1 = a.initFromString("Plus(x,x)");
+		function f2 = a.initFromString("2x");
+		assertEquals(f1, f2);
+		function f3 = a.initFromString("plus(div(+1.0x +1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x -4.0)),2.0)");
+		function f4 = a.initFromString("Plus(div(x+1,x^3 - 3 x^2 -10x+24),2)");
+		assertEquals(f3, f4);
+	}
 	
 }

@@ -215,6 +215,7 @@ public class ComplexFunction implements complex_function {
 	@Override
 	public boolean equals(Object other)
 	{
+		boolean ans = true;
 		if(other instanceof ComplexFunction)
 		{
 			ComplexFunction f = (ComplexFunction) other;
@@ -223,13 +224,25 @@ public class ComplexFunction implements complex_function {
 			{
 				check = true;
 			}
-			return this.left.equals(f.left) && this.right.equals(f.right) && check ;
+			
+			ans = ans && this.left.equals(f.left) && this.right.equals(f.right) && check ;
+			if(ans)
+			{
+				return ans;
+			}
 		}
 		if(other instanceof function)
 		{
-			return this.left.equals(other);
+			// if the function isn't in the exact form then we will try to check from -10 to 10 in jumps of 0.1 to check if the functions are logically equal
+			for (double i = -10; i <= 10; i+=0.1)
+			{
+				if(Math.abs(this.f(i)-((function)other).f(i)) > Monom.EPSILON)
+				{
+					return false;
+				}
+			}
 		}
-		return false;
+		return true;
 	}
 	private String getStringOP()
 	{
