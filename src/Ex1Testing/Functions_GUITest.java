@@ -149,6 +149,9 @@
 //}
 package Ex1Testing;
 import Ex1.*;
+
+import static org.junit.Assert.fail;
+
 import java.util.Iterator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -208,30 +211,26 @@ class Functions_GUITest {
 		_data = FunctionsFactory();
 	}
 
-	//@Test
-	void testFunctions_GUI() {
-	//	fail("Not yet implemented");
-	}
-
-	//@Test
-	void testInitFromFile() {
-	//	fail("Not yet implemented");
-	}
-
-	//@Test
-	void testSaveToFile() {
+	@Test
+	void testInitFromFileAndSave() throws Exception {
+		_data.saveToFile("test.txt");
+		Functions_GUI fromFile = new Functions_GUI();
+		fromFile.initFromFile("test.txt");
+		Iterator<function> itr = _data.iterator();
+		while(itr.hasNext())
+		{
+			function f = itr.next();
+			if(!fromFile.contains(f))
+			{
+				fail("Problem with reading file one or more function were not found");
+			}
+		}
 		
 		
-	}
-
-	//@Test
-	void testDrawFunctions() {
-		//_data.drawFunctions();
-	//	fail("Not yet implemented");
 	}
 
 	@Test
-	void testDrawFunctionsIntIntRangeRangeInt() {
+	void testDrawFunctionsJSON() {
 		_data.drawFunctions("GUI_params.txt");
 		//fail("Not yet implemented");
 	}

@@ -307,6 +307,11 @@ public class Monom implements function{
 				Polynom p = new Polynom(this.toString());
 				return p.equals(other);
 			}
+			if(other instanceof function)
+			{
+				ComplexFunction cf = new ComplexFunction(other.toString());
+				return cf.equals(this);
+			}
 			return false;
 		}
 	}

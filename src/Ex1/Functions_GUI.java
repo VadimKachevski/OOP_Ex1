@@ -145,7 +145,7 @@ public class Functions_GUI implements functions {
 			//				}
 			//			}
 			line = line.substring(line.indexOf("f(x)=")+"f(x)=".length());
-			line = line.strip();
+			line = line.replaceAll("\\s+","");
 			ComplexFunction cf = new ComplexFunction(line);
 			ColFunctions.add(cf);
 			//Colors.add(new Color(rgb[0],rgb[1],rgb[2]));
@@ -233,7 +233,6 @@ public class Functions_GUI implements functions {
 		StdDraw.setPenColor(Color.BLACK);//Remove later
 
 	}
-
 	@Override
 	public void drawFunctions(String json_file) {
 		try {

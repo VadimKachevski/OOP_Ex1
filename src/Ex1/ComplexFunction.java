@@ -283,7 +283,11 @@ public class ComplexFunction implements complex_function {
 				check = true;
 			}
 
-			ans = ans && this.left.equals(f.left) && this.right.equals(f.right) && check ;
+			ans = ans && this.left.equals(f.left);
+			if(this.right != null)
+			{
+				ans = ans && this.right.equals(f.right) && check;
+			}
 			if(ans)
 			{
 				return ans;
