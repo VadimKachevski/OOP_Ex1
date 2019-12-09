@@ -170,76 +170,51 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public void plus(function f1) {
-		if(this.right != null)
-		{
-			function f = new ComplexFunction(getStringOP(),this.left.copy(),this.right.copy());
-			this.left = f;
-		}
-
-		this.right = f1.copy();
+		builderFunctionHelper(f1);
 		this.OP = Operation.Plus;
 	}
 
 	@Override
 	public void mul(function f1) {
-		if(this.right != null)
-		{
-			function f = new ComplexFunction(getStringOP(),this.left,this.right);
-			this.left = f.copy();
-		}
-		this.right = f1.copy();
+		builderFunctionHelper(f1);
 		this.OP = Operation.Times;
 
 	}
 
 	@Override
 	public void div(function f1) {
-		if(this.right != null)
-		{
-			function f = new ComplexFunction(getStringOP(),this.left,this.right);
-			this.left = f.copy();
-		}
-		this.right = f1.copy();
+		builderFunctionHelper(f1);
 		this.OP = Operation.Divid;
 
 	}
 
 	@Override
 	public void max(function f1) {
-		// TODO Auto-generated method stub
-		if(this.right != null)
-		{
-			function f = new ComplexFunction(getStringOP(),this.left,this.right);
-			this.left = f.copy();
-		}
-		this.right = f1.copy();
+		builderFunctionHelper(f1);
 		this.OP = Operation.Max;
 	}
 
 	@Override
 	public void min(function f1) {
-		// TODO Auto-generated method stub
-		if(this.right != null)
-		{
-			function f = new ComplexFunction(getStringOP(),this.left,this.right);
-			this.left = f.copy();
-		}
-		this.right = f1.copy();
+		builderFunctionHelper(f1);
 		this.OP = Operation.Min;
 	}
 
 	@Override
 	public void comp(function f1) {
-		// TODO Auto-generated method stub
+		builderFunctionHelper(f1);
+		this.OP = Operation.Comp;
+	}
+	private void builderFunctionHelper(function f1)
+	{
+		f1 =f1.copy();
 		if(this.right != null)
 		{
-			function f = new ComplexFunction(getStringOP(),this.left,this.right);
+			function f = new ComplexFunction(getStringOP(),this.left.copy(),this.right.copy());
 			this.left = f.copy();
 		}
 		this.right = f1.copy();
-		this.OP = Operation.Comp;
 	}
-
 	@Override
 	public function left() {
 		return this.left;
