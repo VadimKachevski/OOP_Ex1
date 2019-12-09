@@ -35,11 +35,23 @@ class ComplexFunctionTest {
 
 		}
 		Polynom m3 = new Polynom("+2 x ^ 2 + 1 "); //2x^2
-		Polynom m4 = new Polynom("+1x^3");
+		Polynom m4 = new Polynom("+ 1 x ^ 3");
 		ComplexFunction cf2 = new ComplexFunction("div",m3,m4 );
-		System.out.println(cf2.f(0));
+		assertEquals(Double.POSITIVE_INFINITY , cf2.f(0));
+		
+		
+		Monom s =new Monom("1");
+		Polynom m5 = new Polynom(s.toString());
+		Polynom m6 = new Polynom("+2 x ^ 2 - 1 ");
+		cf2 = new ComplexFunction("div" , m6 , m4);
+		
+		String ans = "mul("+m5.toString()+","+cf2.toString()+")";
+		function px = new ComplexFunction(ans);
+		
+		assertEquals(Double.NEGATIVE_INFINITY , px.f(0));
+		
 	}
-/*
+
 	@Test
 	void testOfString() {
 		Polynom p1 = new Polynom();
@@ -61,7 +73,19 @@ class ComplexFunctionTest {
 		if(!cf.equals(cf3)) {
 			fail("ERR: "+cf+" should be equals to "+cf3);
 		}
+		
+		ComplexFunction x1 = new ComplexFunction("plus", m1,m2);
+		x1.mul(x1);
+		x1.div(x1);
+		x1.comp(x1);
+		x1.plus(x1);
+		System.out.println(x1);
+		function y = new ComplexFunction(x1.initFromString(x1.toString()));
+		System.out.println(y);
+		assertEquals(x1, y);
+		
 	}
+	/*
 	@Test
 	void testComplexFunction() {
 		String s1 = "3.1+2.4x^2-x^4";
