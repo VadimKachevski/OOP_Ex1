@@ -46,6 +46,10 @@ public class ComplexFunction implements complex_function {
 			this.left = left.initFromString(left.toString());
 			//this.left = left;
 		}
+		else
+		{
+			throw new RuntimeException("The Operation is not vaild");
+		}
 		if(right != null)
 		{
 			this.right = right.initFromString(right.toString());
@@ -60,6 +64,10 @@ public class ComplexFunction implements complex_function {
 		{
 			this.left = left.initFromString(left.toString());
 			//this.left = left;
+		}
+		else
+		{
+			throw new RuntimeException("The Operation is not vaild");
 		}
 		if(right != null)
 		{
@@ -129,8 +137,15 @@ public class ComplexFunction implements complex_function {
 	}
 	public ComplexFunction(function left) {
 		// TODO Auto-generated constructor stub
-		this.left = left;
-		this.OP = Operation.None;
+		if(left!=null)
+		{
+			this.left = left;
+			this.OP = Operation.None;
+		}
+		else
+		{
+			throw new RuntimeException("The Operation is not vaild");
+		}
 	}
 
 
@@ -162,6 +177,7 @@ public class ComplexFunction implements complex_function {
 	@Override
 	public function initFromString(String s) {
 		// TODO Auto-generated method stub
+		s = s.replaceAll("\\s+","");
 		int IndexFirstBracket = s.indexOf("(");
 		int IndexComma = findComma(s,IndexFirstBracket);
 
