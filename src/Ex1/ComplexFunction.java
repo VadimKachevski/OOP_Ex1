@@ -8,13 +8,50 @@ public class ComplexFunction implements complex_function {
 	function right;
 	Operation OP;
 
-	public ComplexFunction()
+	//	public ComplexFunction()
+	//	{
+	//		this.left= null;
+	//		this.right = null;
+	//		this.OP = Operation.Error;
+	//	}
+	public ComplexFunction(String str)
 	{
-		this.left= null;
-		this.right = null;
-		this.OP = Operation.Error;
+		function f = initFromString(str);
+		if(f instanceof ComplexFunction)
+		{
+			ComplexFunction cf = (ComplexFunction)f;
+			this.left = cf.left.copy();
+			this.right = cf.right.copy();
+			this.OP = cf.getOp();
+		}
+		else
+		{
+			if(f instanceof Polynom)
+			{
+				Polynom p = (Polynom)f;
+				this.left = p.copy();
+				this.OP = Operation.None;
+			}
+			else
+			{
+				throw new RuntimeException("The string is not vaild");
+			}
+		}
 	}
-	
+	public ComplexFunction(Operation op,function left,function right)
+	{
+		if(left!= null)
+		{
+			this.left = left.initFromString(left.toString());
+			//this.left = left;
+		}
+		if(right != null)
+		{
+			this.right = right.initFromString(right.toString());
+			//this.right = right;
+		}
+		this.OP = op;
+	}
 	public ComplexFunction(String op,function left,function right) 
 	{
 		//Divid, Max, Min, Comp , None, Error
@@ -42,8 +79,8 @@ public class ComplexFunction implements complex_function {
 		break;
 		case "comp" : OP = Operation.Comp;
 		break;
-		default: OP = Operation.Error;
-		break;
+		default: throw new RuntimeException("The Operation is not vaild");
+		
 		}
 	}
 	public ComplexFunction(function left) {
@@ -73,6 +110,7 @@ public class ComplexFunction implements complex_function {
 				return left.f(right.f(x));
 			else
 				return left.f(x);
+		case "None": return left.f(x);
 		default: throw new RuntimeException("The Operation is not vaild");
 		}
 	}
@@ -80,14 +118,22 @@ public class ComplexFunction implements complex_function {
 	@Override
 	public function initFromString(String s) {
 		// TODO Auto-generated method stub
-		if(s.indexOf("(") == -1 && s.indexOf(")") == -1)
+		int IndexFirstBracket = s.indexOf("(");
+		int IndexComma = findComma(s,IndexFirstBracket);
+
+		if((s.indexOf("(") == -1 && s.indexOf(")") == -1)) 
 		{
 			Polynom m = new Polynom();
 			return m.initFromString(s);
 		}
-		int IndexFirstBracket = s.indexOf("(");
-		int IndexComma = findComma(s,IndexFirstBracket);
 		String op = s.substring(0, IndexFirstBracket);
+		if(op.compareToIgnoreCase("none")==0 && IndexComma == -1)
+		{
+			Polynom m = new Polynom();
+			return  m.initFromString(s.substring(IndexFirstBracket+1, s.length()-1));
+
+		}
+
 		function left = initFromString(s.substring(IndexFirstBracket+1,IndexComma));
 		function right = initFromString(s.substring(IndexComma+1,s.length()-1));
 		function ans = new ComplexFunction(op, left, right);
@@ -95,6 +141,10 @@ public class ComplexFunction implements complex_function {
 	}
 	private int findComma(String s,int indexFirstBracket)
 	{
+		if(s.indexOf(',')==-1)
+		{
+			return -1;
+		}
 		int counterComma=0;
 		int counterOpenBracket=1;
 		int index=indexFirstBracket+1;
@@ -209,7 +259,15 @@ public class ComplexFunction implements complex_function {
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append(getStringOP()+"("+this.left.toString()+","+this.right.toString()+")");
+		sb.append(getStringOP()+"("+this.left.toString());
+		if(this.right!= null)
+		{
+			sb.append(","+this.right.toString()+")");
+		}
+		else
+		{
+			sb.append(")");
+		}
 		return sb.toString();
 	}
 	@Override
@@ -224,7 +282,7 @@ public class ComplexFunction implements complex_function {
 			{
 				check = true;
 			}
-			
+
 			ans = ans && this.left.equals(f.left) && this.right.equals(f.right) && check ;
 			if(ans)
 			{
@@ -254,6 +312,7 @@ public class ComplexFunction implements complex_function {
 		case "Max" : return "max";
 		case "Min" : return "min";
 		case "Comp" :return "comp";
+		case "None": return "none";
 		default: return "ERROR";
 		}
 	}

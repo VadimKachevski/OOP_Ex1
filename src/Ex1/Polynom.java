@@ -251,6 +251,11 @@ public class Polynom implements Polynom_able{
 				Polynom m = new Polynom(p1.toString());
 				return this.equals(m);
 			}
+			if(p1 instanceof ComplexFunction)
+			{
+				ComplexFunction cf = new  ComplexFunction(p1.toString());
+				return cf.equals(this);
+			}
 			return false;
 		}
 	}

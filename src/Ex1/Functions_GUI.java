@@ -146,8 +146,8 @@ public class Functions_GUI implements functions {
 			//			}
 			line = line.substring(line.indexOf("f(x)=")+"f(x)=".length());
 			line = line.strip();
-			ComplexFunction cf = new ComplexFunction();
-			ColFunctions.add(cf.initFromString(line));
+			ComplexFunction cf = new ComplexFunction(line);
+			ColFunctions.add(cf);
 			//Colors.add(new Color(rgb[0],rgb[1],rgb[2]));
 			line = reader.readLine();
 		}
@@ -223,7 +223,7 @@ public class Functions_GUI implements functions {
 			int G = (int)(Math.random()*256);
 			int B= (int)(Math.random()*256);
 			Color color = new Color(R, G, B);
-		//	color=color.brighter();
+			//color=color.brighter();
 			StdDraw.setPenColor(color);
 			for (double i = rx.get_min(); i < rx.get_max(); i+=rx_step)
 			{
