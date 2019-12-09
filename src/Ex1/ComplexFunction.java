@@ -16,6 +16,7 @@ public class ComplexFunction implements complex_function {
 	//	}
 	public ComplexFunction(String str)
 	{
+		str = str.replaceAll("\\s+","");
 		function f = initFromString(str);
 		if(f instanceof ComplexFunction)
 		{
@@ -65,22 +66,65 @@ public class ComplexFunction implements complex_function {
 			this.right = right.initFromString(right.toString());
 			//this.right = right;
 		}
+
 		switch(op.toLowerCase())
 		{
-		case "plus": OP = Operation.Plus;
+		case "plus": if(right!=null)
+		{
+			OP = Operation.Plus; 
+		}
+		else
+		{
+			throw new RuntimeException("The Operation is not vaild");
+		}
 		break;
-		case "mul" : OP = Operation.Times;
+		case "mul" : if(right!=null) {
+			OP = Operation.Times;
+		}
+		else
+		{
+			throw new RuntimeException("The Operation is not vaild");
+		}
 		break;
-		case "div" : OP = Operation.Divid;
+		case "div" :if(right!=null) {
+			OP = Operation.Divid;
+		}
+		else
+		{
+			throw new RuntimeException("The Operation is not vaild");
+		}
 		break;
-		case "max" : OP = Operation.Max;
+		case "max" :if(right!=null) {
+			OP = Operation.Max;
+		}
+		else
+		{
+			throw new RuntimeException("The Operation is not vaild");
+		}
 		break;
-		case "min" : OP = Operation.Min;
+		case "min" : if(right!=null) {
+			OP = Operation.Min;
+		}
+		else
+		{
+			throw new RuntimeException("The Operation is not vaild");
+		}
 		break;
-		case "comp" : OP = Operation.Comp;
+		case "comp" :  if(right!=null) {
+			OP = Operation.Comp;
+		}
+		else
+		{
+			throw new RuntimeException("The Operation is not vaild");
+		}
+		break;
+		case "none" : if(right!=null)
+		{
+			throw new RuntimeException("The Operation is not vaild");
+		}
 		break;
 		default: throw new RuntimeException("The Operation is not vaild");
-		
+
 		}
 	}
 	public ComplexFunction(function left) {
