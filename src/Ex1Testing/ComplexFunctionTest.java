@@ -14,11 +14,41 @@ import Ex1.Polynom;
 class ComplexFunctionTest {
 	public static final double EPS = 0.00001;
 	@Test
-	void test() {
+	void testConstructors() {
+
+		try {
+			String oper = null;
+			Monom mx = new Monom("1");
+			function pe = null;
+
+			ComplexFunction cf20 = new ComplexFunction(oper,mx,mx);
+			fail("the operation should not be valid");
+		}
+		catch(NullPointerException e)
+		{
+			fail("one of the parameters is Null");
+		}
+		catch(RuntimeException e)
+		{		
+		}	
+
+		try {
+			function pe = null;
+			ComplexFunction	cf20 = new ComplexFunction(pe);
+			fail("the operation should not be valid");
+		}
+		catch(NullPointerException e)
+		{
+			fail("one of the parameters is Null");
+		}
+		catch(Exception e)
+		{
+		}
+
 		Monom m1 = new Monom(2,2); //2x^2
 		Monom m2 = new Monom(3,3); //3x^3
 		ComplexFunction cf = new ComplexFunction("plus", m1,m2); //2x^2+3x^3
-		
+
 		cf.mul(m2); //(2x^2+3x^3)*3x^3
 		//System.out.println(cf);
 		Polynom p = new Polynom();
@@ -30,7 +60,7 @@ class ComplexFunctionTest {
 		double dcf = cf.f(v);
 		double dd = Math.abs(dp-dcf);
 		if(dd>EPS) {
-			
+
 			fail("ERR: should got the same value from: "+p+"should be: "+dp+"  and "+cf+"should be "+dcf);
 
 		}
@@ -38,18 +68,18 @@ class ComplexFunctionTest {
 		Polynom m4 = new Polynom("+ 1 x ^ 3");
 		ComplexFunction cf2 = new ComplexFunction("div",m3,m4 );
 		assertEquals(Double.POSITIVE_INFINITY , cf2.f(0));
-		
-		
+
+
 		Monom s =new Monom("1");
 		Polynom m5 = new Polynom(s.toString());
 		Polynom m6 = new Polynom("+2 x ^ 2 - 1 ");
 		cf2 = new ComplexFunction("div" , m6 , m4);
-		
+
 		String ans = "mul("+m5.toString()+","+cf2.toString()+")";
 		function px = new ComplexFunction(ans);
-		
+
 		assertEquals(Double.NEGATIVE_INFINITY , px.f(0));
-		
+
 	}
 
 	@Test
@@ -73,28 +103,28 @@ class ComplexFunctionTest {
 		if(!cf.equals(cf3)) {
 			fail("ERR: "+cf+" should be equals to "+cf3);
 		}
-		
+
 		ComplexFunction x1 = new ComplexFunction("plus", m1,m2);
 		x1.mul(x1);
 		x1.div(x1);
 		x1.comp(x1);
 		x1.plus(x1);
 		function y = new ComplexFunction(x1.initFromString(x1.toString()).toString());
-		
+
 		assertEquals(x1, y);
-		
+
 		cf = new ComplexFunction("plus", m1,m2);
-		
+
 		Monom m5 = new Monom(2,2);
 		p1 = new Polynom(m5.toString());
 		cf.mul(p1);
 		cf.div(p1);
 		cf.comp(p1);
-		
+
 		function x =cf.copy();
 		assertEquals(x, cf);
 	}
-	
+
 	@Test
 	void testComplexFunction() {
 		String s1 = "3.1+2.4x^2-x^4";
@@ -122,18 +152,18 @@ class ComplexFunctionTest {
 			double d5 = cf5.f(x);
 			assertEquals(d,d5,EPS);
 		}
-	//	System.out.println(cf4);
-	//	System.out.println(cf5);
+		//	System.out.println(cf4);
+		//	System.out.println(cf5);
 		//String x = "plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0)";
-	
-		
+
+
 		Polynom l1 = new Polynom("-1.0x^4");
 		Polynom l2 = new Polynom("-1x^5");
 		function f = new ComplexFunction("plus",l1,l2);
 		double t = 0.000001;
 		Polynom p4 = new Polynom("-1.0x^4+-1x^5");
-		assertEquals(p4.f(t), f.f(t));
-		
+		assertEquals(p4.f(t), f.f(t),EPS);
+
 
 	}
 	@Test
@@ -146,72 +176,64 @@ class ComplexFunctionTest {
 		function f3 = a.initFromString("plus(div(+1.0x +1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x -4.0)),2.0)");
 		function f4 = a.initFromString("Plus(div(x+1,x^3 - 3 x^2 -10x+24),2)");
 		assertEquals(f3, f4);
-		
-		
+
+
 		function p =new Monom("0");
 		function p2 = p.copy();
 		assertEquals(p2, p);
 		ComplexFunction x = new ComplexFunction(p.toString());
 		assertEquals(x, p);
 		assertEquals(x, p2);
-		
-		
+
+
 		//equals
 		//will check function with monom
 		//function with polynom
 		//function with complex function
-		Monom test = new Monom("0");
+		Monom test = new Monom("2");
 		Polynom t3 = new Polynom(test.toString());
-		function left = new Monom("0");
+		function left = new Monom("2");
 		ComplexFunction p3 = new ComplexFunction(left) ;
 		//  			Test
 		//				equals of CF
-		
+
 		//equals if Complex.equals.Monom
 		assertEquals(p3, test);
-		
+
 		//equals if Monom.equals.Complex
 		assertEquals(test, p3); //*****problemtic
-		
+
 		//equals if Complex.equals.Polynom
 		assertEquals(p3, t3);
-		
+
 		//equals if Complex.equals.Function
 		assertEquals(p3, left);
-		
+
 		//equals if Complex.equals.Complex
 		assertEquals(p3, p3);//*****problemtic
-	
-	
-		
+
+
+
 		//				Test
 		//				equals of Function
 		//equals if Function.equals.Complex
 		assertEquals(left, p3); //*****problemetic 
-		
+
 		//equals if function.equals.Monom
 		assertEquals(left, test);
-		
+
 		//equals if function.equals.Polynom
 		assertEquals(left, t3);
-		
+
 		//equals if function.equals.function
 		assertEquals(left, left);
-		
-		
-//		System.out.println(test.equals(left));
-//		System.out.println(left.equals(test));
-		
-//		System.out.println(p3.equals(test));
-//
-//		System.out.println(test.equals(p3));
 
-		
-	}/*
+	}
 	@Test
 	void ComplexFunctionString()
 	{
 		ComplexFunction cf = new ComplexFunction("Plus(div(x+1,x^3 - 3 x^2 -10x+24),2)");
+
 		Polynom p1 = new Polynom("x+1");
 		Polynom p2 = new Polynom("x^3 - 3 x^2 -10x+24");
 		ComplexFunction cf2 = new ComplexFunction("div",p1,p2);
@@ -224,6 +246,18 @@ class ComplexFunctionTest {
 		assertEquals(cf, cf2);
 		assertEquals(cf, cf3);
 		assertEquals(cf3, cf2);
+
+		Polynom t1 = new Polynom("2x^2");
+		Polynom t2 = new Polynom("4x^6");
+		ComplexFunction c = new ComplexFunction("plus",t1,t2);
+		c.plus(c);
+		String ans = c.toString();
+		ComplexFunction c1 = new ComplexFunction(ans);
+		//checks string equals after to string and initfrom string
+		assertEquals(ans, c.toString());
+		assertEquals(ans, c1.toString());
+
+
 	}
 	@Test
 	void ComplexFunction_f()
@@ -239,7 +273,9 @@ class ComplexFunctionTest {
 	{
 		ComplexFunction cf = new ComplexFunction("Plus(div(x+1,x^3 - 3 x^2 -10x+24),2)");
 		function f2 = cf.copy();
+
 		assertEquals(cf, f2);
+
 		cf.plus(new Monom("1"));
 		cf.mul(new Monom("2"));
 		if(cf.equals(f2))
@@ -256,13 +292,43 @@ class ComplexFunctionTest {
 		ComplexFunction cf = new ComplexFunction("Plus(x+3,x^2)");
 		Polynom p1 = new Polynom("x^2+x+3");
 		assertEquals(p1, cf);
+
+		cf = new ComplexFunction("plus(Plus(x+3,x^2),0)");
+		p1 = new Polynom("x^2+x+3+0");
+		function t = p1.copy();
+		assertEquals(cf, t);
+
+
+		cf = new ComplexFunction("plus (  Plus( 0+ , 0 ) , 0)");
+		p1 = new Polynom("0 +0+0");
+		t = p1.copy();
+		assertEquals(cf, t);
+
+		cf = new ComplexFunction("plus (  Plus( 1x^2+ , 1x^2 ) , 0)");
+		p1 = new Polynom("1x^2+ 1x^2++0");
+		t = p1.copy();
+		assertEquals(cf, t);
+
 	}
 	@Test
 	void ComplexFunction_mul() 
 	{
-		ComplexFunction cf = new ComplexFunction("mul(x+3,x^2)");
-		Polynom p1 = new Polynom("x^3+3x^2");
-		assertEquals(cf, p1);
+
+		ComplexFunction cf = new ComplexFunction("mul(x ^ 1 , x ^ 2 )");
+		Polynom p1 = new Polynom("x^1");
+		cf.mul(p1);
+		cf.mul(p1);
+		cf.mul(cf);
+		cf.mul(new ComplexFunction(cf.initFromString(cf.toString()).toString()));
+		ComplexFunction cf2 = (ComplexFunction) cf.copy();	
+		String ans ="mul(mul(mul(mul(mul(1.0x,1.0x^2),1.0x),1.0x),mul(mul(mul(1.0x,1.0x^2),1.0x),1.0x)),mul(mul(mul(mul(1.0x,1.0x^2),1.0x),1.0x),mul(mul(mul(1.0x,1.0x^2),1.0x),1.0x)))";
+
+		ComplexFunction cf3 = new ComplexFunction(ans);
+		assertEquals(cf2, cf3);
+
+		assertEquals(cf.f(1) , p1.f(1),EPS);
+
+
 	}
 	@Test
 	void ComplexFunction_div() 
@@ -270,6 +336,34 @@ class ComplexFunctionTest {
 		ComplexFunction cf = new ComplexFunction("div(x^5,x)");
 		Polynom p1 = new Polynom("x^4");
 		assertEquals(cf, p1);
+
+		cf = new ComplexFunction("div(x,x)");
+		p1 = new Polynom("1");
+		function fx = p1.copy();
+		assertEquals(cf, fx);
+
+		cf = new ComplexFunction("div(0,x)");
+		p1 = new Polynom("0");
+		fx = p1.copy();
+		assertEquals(cf, fx);
+
+		cf = new ComplexFunction("div(x^3,-1)");
+		p1 = new Polynom("-x^3");
+		fx = p1.copy();
+		assertEquals(cf, fx);
+
+		cf = new ComplexFunction("div(div(x^3,-1),x)");
+		p1 = new Polynom("-x^2");
+		fx = p1.copy();
+		assertEquals(cf, fx);
+
+
+		cf = new ComplexFunction("div(div(div(div(x^3,-1),x),x),x)");
+		cf.mul(new Monom("-1"));
+
+		p1 = new Polynom("1");
+		fx = p1.copy();
+		assertEquals(cf, fx);
 	}
 	@Test
 	void ComplexFunction_max() 
@@ -277,17 +371,55 @@ class ComplexFunctionTest {
 		ComplexFunction cf = new ComplexFunction("max(x,x^2)");
 		Polynom p1 = new Polynom("x^2");
 		for (int i = 1; i < 10; i++) {
-			assertEquals(cf.f(i), p1.f(i));
+			assertEquals(cf.f(i), p1.f(i) , EPS);
 		}
+
+		cf = new ComplexFunction("max(x,div(x^2,x))");
+		p1 = new Polynom("x");
+		for (int i = 1; i < 10; i++) {
+			assertEquals(cf.f(i), p1.f(i) ,EPS);
+		}
+
+		cf = new ComplexFunction("max(x^3,x)");
+		p1 = new Polynom("x^3");
+		Polynom p2=new Polynom("x");
+		for (double i = 0; i < 10; i+=0.1) {
+			if(i>=0 && i<=1)
+			{
+				assertEquals(cf.f(i), p2.f(i),EPS);
+			}
+			else
+			{
+				assertEquals(cf.f(i), p1.f(i) ,EPS);
+			}	
+		}
+
+
 	}
+
 	@Test
 	void ComplexFunction_min() 
 	{
 		ComplexFunction cf = new ComplexFunction("min(x,x^2)");
 		Polynom p1 = new Polynom("x");
-		for (int i = 1; i < 10; i++) {
-			assertEquals(cf.f(i), p1.f(i));
+		for (double i = 1; i < 10; i+=0.1) {
+			assertEquals(cf.f(i), p1.f(i) ,EPS);
 		}
+
+		cf = new ComplexFunction("min(x^3,x)");
+		p1 = new Polynom("x^3");
+		Polynom p2=new Polynom("x");
+		for (double i = 0; i < 10; i+=0.5) {
+			if(i>=0 && i<=1)
+			{
+				assertEquals(cf.f(i), p1.f(i) , EPS);
+			}
+			else
+			{
+				assertEquals(cf.f(i), p2.f(i) , EPS);
+			}	
+		}
+
 	}
 	@Test
 	void ComplexFunction_comp() 
@@ -296,9 +428,18 @@ class ComplexFunctionTest {
 		Polynom p1 = new Polynom("x");
 		cf.comp(p1);
 		Polynom p2 = new Polynom("x^5-3x+x^2");
-		for (int i = 1; i < 10; i++) {
-			assertEquals(p1.f(p2.f(i)), cf.f(i));
+		for (double i = 1; i < 10; i+=0.1) {
+			assertEquals(p1.f(p2.f(i)), cf.f(i),EPS);
 		}
+
+		cf = new ComplexFunction("plus(x^5-3x,x^2)");
+		p1 = new Polynom("-x");
+		cf.comp(p1);
+		p2 = new Polynom("x^5-3x-x^2");
+		for (double i = 1; i < 10; i+=0.1) {
+			assertEquals(p1.f(p2.f(i)), cf.f(i),EPS);
+		}
+
 	}
 	@Test
 	void ComplexFunction_equals() {
@@ -320,6 +461,27 @@ class ComplexFunctionTest {
 
 		assertEquals(x, cf2);
 
-		}
-*/
+		ComplexFunction cf1 = new ComplexFunction("mul(x ^ 1 , x ^ 2 )");
+		Polynom p1 = new Polynom("x^1");
+		cf1.mul(p1);
+		cf1.mul(p1);
+		cf1.mul(cf1);
+		cf1.mul(new ComplexFunction(cf1.initFromString(cf1.toString()).toString()));
+		ComplexFunction cf21 = (ComplexFunction) cf1.copy();	
+		String ans ="mul(mul(mul(mul(mul(1.0x,1.0x^2),1.0x),1.0x),mul(mul(mul(1.0x,1.0x^2),1.0x),1.0x)),mul(mul(mul(mul(1.0x,1.0x^2),1.0x),1.0x),mul(mul(mul(1.0x,1.0x^2),1.0x),1.0x)))";
+
+		ComplexFunction cf3 = new ComplexFunction(ans);
+		assertEquals(cf21, cf3);
+		assertEquals(cf1.f(1) , p1.f(1),EPS);
+
+		Polynom test1 = new Polynom("x^2+2");
+		ComplexFunction test2 = new ComplexFunction("plus(x^2,2)");
+
+		for (int i= 0;  i < 10; i++) 
+		{
+			test2.plus(new Monom(i,1));
+			test1.add(new Monom(i,1));
+			assertEquals(test1, test2);
+		}		
+	}
 }
