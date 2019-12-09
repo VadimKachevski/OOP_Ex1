@@ -15,28 +15,31 @@ class ComplexFunctionTest {
 	public static final double EPS = 0.00001;
 	@Test
 	void test() {
-		Monom m1 = new Monom(2,2);
-		Monom m2 = new Monom(3,3);
-		ComplexFunction cf = new ComplexFunction("plus", m1,m2);
-		//	System.out.println(cf);
-		cf.mul(m2);
+		Monom m1 = new Monom(2,2); //2x^2
+		Monom m2 = new Monom(3,3); //3x^3
+		ComplexFunction cf = new ComplexFunction("plus", m1,m2); //2x^2+3x^3
+		
+		cf.mul(m2); //(2x^2+3x^3)*3x^3
 		//System.out.println(cf);
 		Polynom p = new Polynom();
 		p.add(m1);
 		p.add(m2);
-		p.multiply(m2);
+		p.multiply(m2);//(2x^2+3x^3)*3x^3
 		double v = 4.0;
 		double dp = p.f(v);
 		double dcf = cf.f(v);
 		double dd = Math.abs(dp-dcf);
 		if(dd>EPS) {
-			//System.out.println(p+" at "+v+" = "+dp);
-			//System.out.println(cf+" at "+v+" = "+dcf);
+			
 			fail("ERR: should got the same value from: "+p+"should be: "+dp+"  and "+cf+"should be "+dcf);
 
 		}
+		Polynom m3 = new Polynom("+2 x ^ 2 + 1 "); //2x^2
+		Polynom m4 = new Polynom("+1x^3");
+		ComplexFunction cf2 = new ComplexFunction("div",m3,m4 );
+		System.out.println(cf2.f(0));
 	}
-
+/*
 	@Test
 	void testOfString() {
 		Polynom p1 = new Polynom();
@@ -203,21 +206,15 @@ class ComplexFunctionTest {
 		cf.min(m1);
 		function x =cf.initFromString(cf.toString());
 
-		//ComplexFunction c3 = new ComplexFunction();
-
-		//System.out.println("x   : "+x);
-
-
 
 		ComplexFunction cf2 = new ComplexFunction("plus",m1,m2);
 		cf2.mul(m1);
 		cf2.div(m1);
 		cf2.max(m1);
 		cf2.min(m1);
-//		System.out.println("cf2 : "+cf2.toString() );
-//		System.out.println(x.equals(cf2));
+
 		assertEquals(x, cf2);
 
 		}
-
+*/
 }

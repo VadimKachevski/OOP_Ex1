@@ -166,7 +166,8 @@ public class Monom implements function{
 		//			throw new RuntimeException("The Monom: "+ s +" is not valid has to be in the format of aX^b");	
 		//		}
 		String orgString = s;
-		s = s.strip();
+		//s = s.strip();
+		s = s.replaceAll("\\s+","");
 		int sign = 1;
 		if(s==null || s.length() == 0)
 		{
