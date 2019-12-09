@@ -79,13 +79,22 @@ class ComplexFunctionTest {
 		x1.div(x1);
 		x1.comp(x1);
 		x1.plus(x1);
-		System.out.println(x1);
-		function y = new ComplexFunction(x1.initFromString(x1.toString()));
-		System.out.println(y);
+		function y = new ComplexFunction(x1.initFromString(x1.toString()).toString());
+		
 		assertEquals(x1, y);
 		
+		cf = new ComplexFunction("plus", m1,m2);
+		
+		Monom m5 = new Monom(2,2);
+		p1 = new Polynom(m5.toString());
+		cf.mul(p1);
+		cf.div(p1);
+		cf.comp(p1);
+		
+		function x =cf.copy();
+		assertEquals(x, cf);
 	}
-	/*
+	
 	@Test
 	void testComplexFunction() {
 		String s1 = "3.1+2.4x^2-x^4";
@@ -115,6 +124,17 @@ class ComplexFunctionTest {
 		}
 	//	System.out.println(cf4);
 	//	System.out.println(cf5);
+		//String x = "plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0)";
+	
+		
+		Polynom l1 = new Polynom("-1.0x^4");
+		Polynom l2 = new Polynom("-1x^5");
+		function f = new ComplexFunction("plus",l1,l2);
+		double t = 0.000001;
+		Polynom p4 = new Polynom("-1.0x^4+-1x^5");
+		assertEquals(p4.f(t), f.f(t));
+		
+
 	}
 	@Test
 	void equalsTest()
@@ -126,7 +146,68 @@ class ComplexFunctionTest {
 		function f3 = a.initFromString("plus(div(+1.0x +1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x -4.0)),2.0)");
 		function f4 = a.initFromString("Plus(div(x+1,x^3 - 3 x^2 -10x+24),2)");
 		assertEquals(f3, f4);
-	}
+		
+		
+		function p =new Monom("0");
+		function p2 = p.copy();
+		assertEquals(p2, p);
+		ComplexFunction x = new ComplexFunction(p.toString());
+		assertEquals(x, p);
+		assertEquals(x, p2);
+		
+		
+		//equals
+		//will check function with monom
+		//function with polynom
+		//function with complex function
+		Monom test = new Monom("0");
+		Polynom t3 = new Polynom(test.toString());
+		function left = new Monom("0");
+		ComplexFunction p3 = new ComplexFunction(left) ;
+		//  			Test
+		//				equals of CF
+		
+		//equals if Complex.equals.Monom
+		assertEquals(p3, test);
+		
+		//equals if Monom.equals.Complex
+		assertEquals(test, p3); //*****problemtic
+		
+		//equals if Complex.equals.Polynom
+		assertEquals(p3, t3);
+		
+		//equals if Complex.equals.Function
+		assertEquals(p3, left);
+		
+		//equals if Complex.equals.Complex
+		assertEquals(p3, p3);//*****problemtic
+	
+	
+		
+		//				Test
+		//				equals of Function
+		//equals if Function.equals.Complex
+		assertEquals(left, p3); //*****problemetic 
+		
+		//equals if function.equals.Monom
+		assertEquals(left, test);
+		
+		//equals if function.equals.Polynom
+		assertEquals(left, t3);
+		
+		//equals if function.equals.function
+		assertEquals(left, left);
+		
+		
+//		System.out.println(test.equals(left));
+//		System.out.println(left.equals(test));
+		
+//		System.out.println(p3.equals(test));
+//
+//		System.out.println(test.equals(p3));
+
+		
+	}/*
 	@Test
 	void ComplexFunctionString()
 	{
