@@ -41,6 +41,10 @@ public class ComplexFunction implements complex_function {
 	}
 	public ComplexFunction(Operation op,function left,function right)
 	{
+		if(op == null)
+		{
+			throw new RuntimeException("The Operation is not vaild");
+		}
 		if(left!= null)
 		{
 			this.left = left.initFromString(left.toString());
@@ -60,6 +64,10 @@ public class ComplexFunction implements complex_function {
 	public ComplexFunction(String op,function left,function right) 
 	{
 		//Divid, Max, Min, Comp , None, Error
+		if(op == null)
+		{
+			throw new RuntimeException("The Operation is not vaild");
+		}
 		if(left!= null)
 		{
 			this.left = left.initFromString(left.toString());
