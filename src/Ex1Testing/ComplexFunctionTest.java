@@ -20,7 +20,7 @@ class ComplexFunctionTest {
 		ComplexFunction cf = new ComplexFunction("plus", m1,m2);
 		//	System.out.println(cf);
 		cf.mul(m2);
-		System.out.println(cf);
+		//System.out.println(cf);
 		Polynom p = new Polynom();
 		p.add(m1);
 		p.add(m2);
@@ -30,8 +30,8 @@ class ComplexFunctionTest {
 		double dcf = cf.f(v);
 		double dd = Math.abs(dp-dcf);
 		if(dd>EPS) {
-			System.out.println(p+" at "+v+" = "+dp);
-			System.out.println(cf+" at "+v+" = "+dcf);
+			//System.out.println(p+" at "+v+" = "+dp);
+			//System.out.println(cf+" at "+v+" = "+dcf);
 			fail("ERR: should got the same value from: "+p+"should be: "+dp+"  and "+cf+"should be "+dcf);
 
 		}
@@ -86,8 +86,8 @@ class ComplexFunctionTest {
 			double d5 = cf5.f(x);
 			assertEquals(d,d5,EPS);
 		}
-		System.out.println(cf4);
-		System.out.println(cf5);
+	//	System.out.println(cf4);
+	//	System.out.println(cf5);
 	}
 	@Test
 	void equalsTest()
@@ -156,5 +156,68 @@ class ComplexFunctionTest {
 		Polynom p1 = new Polynom("x^3+3x^2");
 		assertEquals(cf, p1);
 	}
-	
+	@Test
+	void ComplexFunction_div() 
+	{
+		ComplexFunction cf = new ComplexFunction("div(x^5,x)");
+		Polynom p1 = new Polynom("x^4");
+		assertEquals(cf, p1);
+	}
+	@Test
+	void ComplexFunction_max() 
+	{
+		ComplexFunction cf = new ComplexFunction("max(x,x^2)");
+		Polynom p1 = new Polynom("x^2");
+		for (int i = 1; i < 10; i++) {
+			assertEquals(cf.f(i), p1.f(i));
+		}
+	}
+	@Test
+	void ComplexFunction_min() 
+	{
+		ComplexFunction cf = new ComplexFunction("min(x,x^2)");
+		Polynom p1 = new Polynom("x");
+		for (int i = 1; i < 10; i++) {
+			assertEquals(cf.f(i), p1.f(i));
+		}
+	}
+	@Test
+	void ComplexFunction_comp() 
+	{
+		ComplexFunction cf = new ComplexFunction("plus(x^5-3x,x^2)");
+		Polynom p1 = new Polynom("x");
+		cf.comp(p1);
+		Polynom p2 = new Polynom("x^5-3x+x^2");
+		for (int i = 1; i < 10; i++) {
+			assertEquals(p1.f(p2.f(i)), cf.f(i));
+		}
+	}
+	@Test
+	void ComplexFunction_equals() {
+		Monom m1 = new Monom(2,2);
+		Monom m2 = new Monom(3,3);
+		ComplexFunction cf = new ComplexFunction("plus",m1,m2);
+		cf.mul(m1);
+		cf.div(m1);
+		cf.max(m1);
+		cf.min(m1);
+		function x =cf.initFromString(cf.toString());
+
+		//ComplexFunction c3 = new ComplexFunction();
+
+		//System.out.println("x   : "+x);
+
+
+
+		ComplexFunction cf2 = new ComplexFunction("plus",m1,m2);
+		cf2.mul(m1);
+		cf2.div(m1);
+		cf2.max(m1);
+		cf2.min(m1);
+//		System.out.println("cf2 : "+cf2.toString() );
+//		System.out.println(x.equals(cf2));
+		assertEquals(x, cf2);
+
+		}
+
 }
