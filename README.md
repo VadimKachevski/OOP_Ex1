@@ -1,14 +1,14 @@
 # OOP_Ex1
 
-The project is a representation of a Complex function and Visual representation of a collection of Functions.
-The complex function is in a format of the following rules:
-Operation(left function, right function)
-Where Operation is a mathematical operation from the following list:
-Plus - Computes and returns the Y value of (left function + right function) at the point X.
-mul - Computes and returns the Y value of (left function * right function) at the point X.
-div - Computes and returns the Y value of (left function / right function) at the point X.
-max - Computes and returns the Y value of max(leftFunction(x),rightFunction(x)).
-min - Computes and returns the Y value of min(leftFunction(x),rightFunction(x)).
+The project is a representation of a Complex function and Visual representation of a collection of Functions.  
+The complex function is in a format of the following rules:  
+Operation(left function, right function)  
+Where Operation is a mathematical operation from the following list:  
+Plus - Computes and returns the Y value of (left function + right function) at the point X.  
+mul - Computes and returns the Y value of (left function * right function) at the point X.  
+div - Computes and returns the Y value of (left function / right function) at the point X.  
+max - Computes and returns the Y value of max(leftFunction(x),rightFunction(x)).  
+min - Computes and returns the Y value of min(leftFunction(x),rightFunction(x)).  
 comp - Computes and returns the Y value of (leftfunction(rightfunction(x)),Computes the Y value of rightfunction at the point X and computes this Value as the x for the left function.
 none - Only viable if right function Is NULL so it returns the value Y of leftFucntion at the point x.
 Left function and right function are both a functions, they can represent the Mathematical Monom , Polynom or another ComplexFunciton.
