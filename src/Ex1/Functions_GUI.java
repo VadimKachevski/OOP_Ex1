@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -25,18 +26,20 @@ public class Functions_GUI implements functions {
 
 	ArrayList<function> ColFunctions;
 	//ArrayList<Color> Colors;
-	
+	//HashMap<function, Color> test;
+
 
 	public Functions_GUI() {
 		// TODO Auto-generated constructor stub
 		ColFunctions = new ArrayList<function>();
-	//	Colors = new ArrayList<Color>();
+		//	Colors = new ArrayList<Color>();
 	}
 
 	@Override
 	public int size() {
 		// TODO Auto-generated method stub
 		return ColFunctions.size();
+		
 	}
 
 	@Override
@@ -144,7 +147,10 @@ public class Functions_GUI implements functions {
 			//					ans="";
 			//				}
 			//			}
-			line = line.substring(line.indexOf("f(x)=")+"f(x)=".length());
+			if(line.indexOf("f(x)=") != -1)
+			{
+				line = line.substring(line.indexOf("f(x)=")+"f(x)=".length());
+			}
 			line = line.replaceAll("\\s+","");
 			ComplexFunction cf = new ComplexFunction(line);
 			ColFunctions.add(cf);
@@ -184,16 +190,16 @@ public class Functions_GUI implements functions {
 		StdDraw.setYscale(ry.get_min(), ry.get_max());
 
 		StdDraw.setPenColor(Color.LIGHT_GRAY);
-//		for (int i = 0; i <= resolution; i=i+10) {
-//			StdDraw.line(rx.get_min()+i/10, ry.get_min(), rx.get_min()+i/10, ry.get_max());
-//		}
-		
+		//		for (int i = 0; i <= resolution; i=i+10) {
+		//			StdDraw.line(rx.get_min()+i/10, ry.get_min(), rx.get_min()+i/10, ry.get_max());
+		//		}
+
 		for (double i = rx.get_min(); i <= rx.get_max(); i++) {
 			StdDraw.line(i, ry.get_min(), i, ry.get_max());
 		}
-//		for (int i = 0; i <= resolution; i=i+10) {
-//			StdDraw.line(rx.get_min(), ry.get_min()+i/10, rx.get_max(), ry.get_min()+i/10);
-//		}
+		//		for (int i = 0; i <= resolution; i=i+10) {
+		//			StdDraw.line(rx.get_min(), ry.get_min()+i/10, rx.get_max(), ry.get_min()+i/10);
+		//		}
 		for (double i = ry.get_min(); i <= ry.get_max(); i++) {
 			StdDraw.line(rx.get_min(), i, rx.get_max(), i);
 		}
@@ -203,20 +209,20 @@ public class Functions_GUI implements functions {
 		//StdDraw.line(rx.get_min(), (ry.get_max()+ry.get_min())/2, rx.get_max(), (ry.get_max()+ry.get_min())/2);
 		StdDraw.setFont(new Font("TimesRoman", Font.BOLD, 15));
 		StdDraw.line(rx.get_min(), 0, rx.get_max(), 0);
-//		for (int i = 0; i <= Math.abs(rx.get_min())+Math.abs(rx.get_max()); i++) {
-//			StdDraw.text(rx.get_min()+i, -0.30, Double.toString((rx.get_min()+i)));
-//		}
+		//		for (int i = 0; i <= Math.abs(rx.get_min())+Math.abs(rx.get_max()); i++) {
+		//			StdDraw.text(rx.get_min()+i, -0.30, Double.toString((rx.get_min()+i)));
+		//		}
 		for (double i = rx.get_min(); i <= rx.get_max(); i++) {
 			StdDraw.text(i, -0.30, Integer.toString(Math.toIntExact((long) i)));
 		}
 		StdDraw.line(0, ry.get_min(), 0, ry.get_max());
-//		for (int i = 0; i <= Math.abs(ry.get_min())+Math.abs(ry.get_max()); i++) {
-//			StdDraw.text(-0.30,ry.get_min()+i, (Double.toString((int)(ry.get_min()+i))));
-//		}
+		//		for (int i = 0; i <= Math.abs(ry.get_min())+Math.abs(ry.get_max()); i++) {
+		//			StdDraw.text(-0.30,ry.get_min()+i, (Double.toString((int)(ry.get_min()+i))));
+		//		}
 		for (double i = ry.get_min(); i <= ry.get_max(); i++) {
 			StdDraw.text(-0.20,i, Integer.toString(Math.toIntExact((long) i)));
 		}
-
+		int counter = 0;
 		for (function function : ColFunctions) {
 			double rx_step = (Math.abs(rx.get_min())+Math.abs(rx.get_max()))/resolution;
 			int R = (int)(Math.random()*256);
@@ -229,6 +235,8 @@ public class Functions_GUI implements functions {
 			{
 				StdDraw.line(i, function.f(i), i+rx_step, function.f(i+rx_step));
 			}
+			System.out.println(counter+") "+color.toString()+" "+"   f(x)= "+function.toString());
+			counter++;
 		}
 		StdDraw.setPenColor(Color.BLACK);//Remove later
 
@@ -263,7 +271,7 @@ public class Functions_GUI implements functions {
 				int i=0;
 				while(itr.hasNext() && i<2)
 				{
-					
+
 					Range_X[i++] = (double)itr.next().doubleValue();
 				}
 			}

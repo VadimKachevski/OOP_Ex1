@@ -182,35 +182,33 @@ import Ex1.functions;
  *
  */
 class Functions_GUITest {
-	public static void main(String[] a) {
-		functions data = FunctionsFactory();
-	//	int w=1000, h=600, res=200;
-	//	Range rx = new Range(-10,10);
-	//	Range ry = new Range(-5,15);
-//		data.drawFunctions(w,h,rx,ry,res);
-		String file = "function_file.txt";
-		String file2 = "function_file2.txt";
-		try {
-			data.saveToFile(file);
-			Functions_GUI data2 = new Functions_GUI();
-			data2.initFromFile(file);
-			data.saveToFile(file2);
-		}
-		catch(Exception e) {e.printStackTrace();}
-		
-		String JSON_param_file = "GUI_params.txt";
-		data.drawFunctions(JSON_param_file);
-	}
 	private functions _data=null;
-//	@BeforeAll
-//	static void setUpBeforeClass() throws Exception {
-//	}
 
 	@BeforeEach
 	void setUp() throws Exception {
 		_data = FunctionsFactory();
 	}
-
+	@Test
+	void testCreateReadDraw()
+	{
+		functions data = FunctionsFactory();
+			int w=1000, h=600, res=200;
+			Range rx = new Range(-10,10);
+			Range ry = new Range(-5,15);
+			data.drawFunctions(w,h,rx,ry,res);
+			String file = "function_file.txt";
+			String file2 = "function_file2.txt";
+			try {
+				data.saveToFile(file);
+				Functions_GUI data2 = new Functions_GUI();
+				data2.initFromFile(file);
+				data.saveToFile(file2);
+			}
+			catch(Exception e) {e.printStackTrace();}
+			
+			String JSON_param_file = "GUI_params.txt";
+			data.drawFunctions(JSON_param_file);
+	}
 	@Test
 	void testInitFromFileAndSave() throws Exception {
 		_data.saveToFile("test.txt");
@@ -225,8 +223,6 @@ class Functions_GUITest {
 				fail("Problem with reading file one or more function were not found");
 			}
 		}
-		
-		
 	}
 
 	@Test
