@@ -2,18 +2,14 @@ package Ex1;
 
 
 public class ComplexFunction implements complex_function {
-
-
+	
 	function left;
 	function right;
 	Operation OP;
-
-	//	public ComplexFunction()
-	//	{
-	//		this.left= null;
-	//		this.right = null;
-	//		this.OP = Operation.Error;
-	//	}
+	/**
+	 * Creating a ComplexFunction with the String
+	 * @param str
+	 */
 	public ComplexFunction(String str)
 	{
 		str = str.replaceAll("\\s+","");
@@ -39,6 +35,13 @@ public class ComplexFunction implements complex_function {
 			}
 		}
 	}
+	/**
+	 * Creating a ComplexFucntion with OP, Left and right
+	 * Left mustn't be null,Can't receive op as NONE if right is not null
+	 * @param op
+	 * @param left
+	 * @param right
+	 */
 	public ComplexFunction(Operation op,function left,function right)
 	{
 		if(op == null)
@@ -48,7 +51,6 @@ public class ComplexFunction implements complex_function {
 		if(left!= null)
 		{
 			this.left = left.initFromString(left.toString());
-			//this.left = left;
 		}
 		else
 		{
@@ -57,13 +59,18 @@ public class ComplexFunction implements complex_function {
 		if(right != null)
 		{
 			this.right = right.initFromString(right.toString());
-			//this.right = right;
 		}
 		this.OP = op;
 	}
+	/**
+	 * Creating a ComplexFucntion with String OP making it Operation, Left and right
+	 * Left mustn't be null, Can't receive op as NONE if right is not null
+	 * @param op
+	 * @param left
+	 * @param right
+	 */
 	public ComplexFunction(String op,function left,function right) 
 	{
-		//Divid, Max, Min, Comp , None, Error
 		if(op == null)
 		{
 			throw new RuntimeException("The Operation is not vaild");
@@ -71,7 +78,6 @@ public class ComplexFunction implements complex_function {
 		if(left!= null)
 		{
 			this.left = left.initFromString(left.toString());
-			//this.left = left;
 		}
 		else
 		{
@@ -80,7 +86,6 @@ public class ComplexFunction implements complex_function {
 		if(right != null)
 		{
 			this.right = right.initFromString(right.toString());
-			//this.right = right;
 		}
 
 		switch(op.toLowerCase())
@@ -143,8 +148,11 @@ public class ComplexFunction implements complex_function {
 
 		}
 	}
+	/**
+	 * Creates a ComplexFunction with only left function and Operation is set to NONE
+	 * @param left
+	 */
 	public ComplexFunction(function left) {
-		// TODO Auto-generated constructor stub
 		if(left!=null)
 		{
 			this.left = left;
@@ -163,7 +171,18 @@ public class ComplexFunction implements complex_function {
 		{
 		case "Plus":  return left.f(x)+right.f(x);
 		case "Times" :  return left.f(x)*right.f(x);
-		case "Divid" : return left.f(x)/right.f(x);
+		case "Divid" :  
+			double leftx = left.f(x);
+			double rightx = right.f(x);
+			if(leftx == 0 && rightx == 0)
+			{
+				throw new RuntimeException("You cann't divide 0 by 0");
+			}
+			else
+			{
+				return left.f(x)/right.f(x);
+			}
+
 		case "Max" : if(left.f(x)>right.f(x))
 			return left.f(x);
 		else
@@ -184,11 +203,9 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public function initFromString(String s) {
-		// TODO Auto-generated method stub
 		s = s.replaceAll("\\s+","");
 		int IndexFirstBracket = s.indexOf("(");
 		int IndexComma = findComma(s,IndexFirstBracket);
-
 		if((s.indexOf("(") == -1 && s.indexOf(")") == -1)) 
 		{
 			Polynom m = new Polynom();
@@ -199,9 +216,7 @@ public class ComplexFunction implements complex_function {
 		{
 			Polynom m = new Polynom();
 			return  m.initFromString(s.substring(IndexFirstBracket+1, s.length()-1));
-
 		}
-
 		function left = initFromString(s.substring(IndexFirstBracket+1,IndexComma));
 		function right = initFromString(s.substring(IndexComma+1,s.length()-1));
 		function ans = new ComplexFunction(op, left, right);
@@ -290,7 +305,6 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public function right() {
-		// TODO Auto-generated method stub
 		return this.right;
 	}
 
@@ -363,5 +377,4 @@ public class ComplexFunction implements complex_function {
 		default: return "ERROR";
 		}
 	}
-
 }

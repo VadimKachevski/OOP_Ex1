@@ -68,7 +68,6 @@ public class Polynom implements Polynom_able{
 					}
 				}
 			}
-		//	Monoms.add(new Monom(Mon));
 			this.add(new Monom(Mon));
 		}
 		deal_WithZero();
@@ -110,8 +109,6 @@ public class Polynom implements Polynom_able{
 			}
 		}
 		deal_WithZero();
-
-
 		Monoms.sort(Monom._Comp);
 		if(Monoms.get(Monoms.size()-1).isZero())
 		{
@@ -130,15 +127,8 @@ public class Polynom implements Polynom_able{
 			}
 		}
 		Monoms.add(m1);
-
 		deal_WithZero();
-
-
 		Monoms.sort(Monom._Comp);
-//		if(Monoms.get(Monoms.size()-1).isZero())
-//		{
-//			Monoms.remove(Monoms.size()-1);
-//		}
 	}
 
 	private void deal_WithZero() {
@@ -176,13 +166,8 @@ public class Polynom implements Polynom_able{
 				Monoms.add(m);
 			}
 		}
-
-
 		deal_WithZero();
-
-
 		Monoms.sort(Monom._Comp);
-
 	}
 
 	@Override
@@ -195,7 +180,6 @@ public class Polynom implements Polynom_able{
 		}
 		ArrayList<Monom> newMonoms = new ArrayList<Monom>();
 		Polynom_able newp1 = (Polynom_able) p1.copy();
-
 		for (Monom monom : Monoms) {
 			Iterator<Monom> itr = newp1.iteretor();
 			while(itr.hasNext())
@@ -350,8 +334,6 @@ public class Polynom implements Polynom_able{
 	@Override
 	public Iterator<Monom> iteretor() {
 		return Monoms.iterator();
-
-
 	}
 	@Override
 	public void multiply(Monom m1) {
@@ -360,7 +342,6 @@ public class Polynom implements Polynom_able{
 		for (Monom monom : Monoms) {
 			monom.multipy(m2);
 		}
-
 	}
 	/**
 	 * toString
@@ -389,13 +370,10 @@ public class Polynom implements Polynom_able{
 		}
 		return ans;
 	}
-
-	/* new functions */
+	
 	@Override
 	public function initFromString(String s) {
 		function ans = new Polynom(s);
 		return ans;
 	}
-	
-
 }

@@ -55,118 +55,7 @@ public class Monom implements function{
 	// ***************** add your code below **********************
 	public Monom(String s)
 	{
-		//		s=s.replace('X', 'x');
-		//		int x_index=s.indexOf('x');
-		//		int power_index = s.indexOf('^');
-		//
-		//		if(s.length()==0)
-		//		{
-		//			this._coefficient=0;
-		//			this._power=0;
-		//			return;
-		//		}
-		//
-		//		if(s.length()==1) 
-		//		{
-		//			if(s.charAt(0)<'0' || s.charAt(0)>'9' && s.charAt(0)!='x') 
-		//			{
-		//				throw new RuntimeException("The Monom: "+ s +" is not valid has to be in the format of aX^b");
-		//			}
-		//		}
-		//
-		//		if(s.charAt(0)=='-' && s.charAt(1)!='-')
-		//		{
-		//			if(s.charAt(1)=='x' && power_index == -1)
-		//			{
-		//				this._coefficient = -1;
-		//				this._power = 1;
-		//				return;
-		//			}
-		//
-		//			if(s.charAt(1)>='0' && s.charAt(1)<='9')
-		//			{
-		//				x_index = s.indexOf('x');
-		//				power_index = s.indexOf('^');
-		//				if(power_index==-1 && x_index!=-1)
-		//				{
-		//					this._coefficient=Double.parseDouble(s.substring(0,x_index));
-		//					this._power=1;
-		//					return;
-		//				}
-		//				if(power_index==-1 && x_index==-1)
-		//				{
-		//					this._coefficient=Double.parseDouble(s.substring(0));
-		//					this._power=0;
-		//					return;
-		//				}
-		//				this._coefficient=Double.parseDouble(s.substring(0,x_index));
-		//				this._power=Integer.parseInt(s.substring(power_index+1));
-		//				return;
-		//			}
-		//			if(x_index != -1 && power_index != -1)
-		//			{
-		//				if(x_index != 1)
-		//				{
-		//					this._coefficient=Double.parseDouble(s.substring(0,x_index));
-		//				}
-		//				else
-		//				{
-		//					this._coefficient = -1;
-		//				}
-		//				this._power=Integer.parseInt(s.substring(power_index+1));
-		//				return;
-		//
-		//			}
-		//		}
-		//
-		//		if(s.charAt(0)>='0' && s.charAt(0)<='9')
-		//		{
-		//			x_index = s.indexOf('x');
-		//			power_index = s.indexOf('^');
-		//			if(power_index==-1 && x_index!=-1)
-		//			{
-		//				if(x_index!=s.length()-1) {
-		//					throw new RuntimeException("The Monom: "+ s +" is not valid has to be in the format of aX^b");
-		//				}
-		//				this._coefficient=Double.parseDouble(s.substring(0,x_index));
-		//				this._power=1;
-		//				return;
-		//			}
-		//			if(power_index==-1 && x_index==-1)
-		//			{
-		//				this._coefficient=Double.parseDouble(s.substring(0));
-		//				this._power=0;
-		//				return;
-		//			}
-		//			this._coefficient=Double.parseDouble(s.substring(0,x_index));
-		//			this._power=Integer.parseInt(s.substring(power_index+1));
-		//			return;
-		//		}
-		//
-		//		else if(s.length()==1 && s.charAt(0)=='x')
-		//		{
-		//			this._coefficient=1;
-		//			this._power=1;
-		//			return;
-		//		}
-		//		else if(s.length()==1 && s.charAt(0)>='0' && s.charAt(0)<='9')
-		//		{
-		//			this._coefficient=Double.parseDouble(s);
-		//			this._power=0;
-		//			return;
-		//		}
-		//		else if(s.charAt(0)=='x' && s.charAt(1)=='^') 
-		//		{
-		//			this._coefficient=1;
-		//			s=s.substring(power_index+1);
-		//			this._power=Integer.parseInt(s);
-		//		}
-		//		else 
-		//		{
-		//			throw new RuntimeException("The Monom: "+ s +" is not valid has to be in the format of aX^b");	
-		//		}
 		String orgString = s;
-		//s = s.strip();
 		s = s.replaceAll("\\s+","");
 		int sign = 1;
 		if(s==null || s.length() == 0)
@@ -193,7 +82,6 @@ public class Monom implements function{
 			x_Index=s.indexOf('x');
 			power_Index = s.indexOf('^');
 		}
-
 		if(x_Index != -1)
 		{
 			try 
@@ -315,8 +203,6 @@ public class Monom implements function{
 			return false;
 		}
 	}
-	// you may (always) add other methods.
-
 	//****************** Private Methods and Data *****************
 
 
@@ -331,10 +217,6 @@ public class Monom implements function{
 	private double _coefficient; 
 	private int _power;
 
-
-
-	/*----------------------- new FUNCITONS */
-	// Should be aight
 	@Override
 	public function initFromString(String s) {
 		function ans = new Monom(s);
