@@ -32,6 +32,10 @@ Height=600
 Resolution=200  
 Range_X = {-10,1}  
 Range_Y = {-5,15}  
+about Issues section - in the issues section you can see all our Closed bugs and Open bugs.  
+the section contains all our programs bug history and how they were fixed.  
+Open bugs - are ongoing issues we still work on and will be fixed in the upcoming future.  
+Closed bugs - are all the bugs we found and we were able to resolve , and a description every bug and what fixed the bug.    
 
  
 
