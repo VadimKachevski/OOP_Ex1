@@ -181,13 +181,14 @@ public class Functions_GUI implements functions {
 	}
 	@Override
 	public void drawFunctions(String json_file) {
+		int Width=1000;
+		int Height=600;
+		int Resolution=200;
+		double[] Range_X = {-10,10};
+		double[] Range_Y = {-5,15};
 		try {
 			JSONObject  obj = (JSONObject) new JSONParser().parse(new FileReader(json_file));
-			int Width=1000;
-			int Height=600;
-			int Resolution=200;
-			double[] Range_X = {-10,10};
-			double[] Range_Y = {-5,15};
+			
 			JSONArray JAx;
 			JSONArray JAy;
 			if(obj.get("Width") != null)
@@ -228,7 +229,10 @@ public class Functions_GUI implements functions {
 			drawFunctions(Width,Height,rx,ry,Resolution);
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			System.err.println("The file was not found using default params");
+			Range rx = new Range(Range_X[0], Range_X[1]);
+			Range ry = new Range(Range_Y[0], Range_Y[1]);
+			drawFunctions(Width,Height,rx,ry,Resolution);
 		}
 
 

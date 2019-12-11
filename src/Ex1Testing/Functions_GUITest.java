@@ -230,6 +230,19 @@ class Functions_GUITest {
 		_data.drawFunctions("GUI_params.txt");
 		//fail("Not yet implemented");
 	}
+	@Test
+	void testNoFXReadUsingDefaultJSONparams()
+	{
+		try
+		{
+		Functions_GUI fromFile = new Functions_GUI();
+		fromFile.initFromFile("s.txt");
+		fromFile.drawFunctions("GUI_params");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public static functions FunctionsFactory() {
 		functions ans = new Functions_GUI();
 		String s1 = "3.1 +2.4x^2 -x^4";
